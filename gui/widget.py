@@ -32,12 +32,6 @@ class CryptoGUI(tk.Frame):
             tk.Radiobutton(self, text=txt, variable=self.op_var,
                            value=txt).grid(row=4 + i, column=0, sticky='w')
 
-        self.mode_var = tk.StringVar(value='CBC')
-        tk.Label(self, text="Mode of operation:").grid(row=3, column=1,
-                                                       sticky='w')
-        for i, txt in enumerate(("CBC",)):  # only CBC required
-            tk.Radiobutton(self, text=txt, variable=self.mode_var,
-                           value=txt).grid(row=4 + i, column=1, sticky='w')
 
         tk.Label(self, text="Key / Password:").grid(row=3, column=2,
                                                     sticky='w')
