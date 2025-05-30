@@ -32,6 +32,7 @@ class IDEA(BlockCipher):
         return k
 
     @staticmethod
+    #sum modulu 2^16
     def _add(x, y):
         return (x + y) & 0xFFFF
 
@@ -62,13 +63,13 @@ class IDEA(BlockCipher):
         inv = [0] * 52
         p = 0
         # Output transformation
-        inv[48] = self._mul_inv(k[p]);
+        inv[48] = self._mul_inv(k[p])
         p += 1
-        inv[49] = self._add_inv(k[p]);
+        inv[49] = self._add_inv(k[p])
         p += 1
-        inv[50] = self._add_inv(k[p]);
+        inv[50] = self._add_inv(k[p])
         p += 1
-        inv[51] = self._mul_inv(k[p]);
+        inv[51] = self._mul_inv(k[p])
         p += 1
         # Rounds 8‑2
         for r in range(7, 0, -1):
@@ -104,16 +105,16 @@ class IDEA(BlockCipher):
         k = self.sub_keys
         p = 0
         for _ in range(self.ROUNDS):
-            y1 = self._mul(x1, k[p]);
+            y1 = self._mul(x1, k[p])
             y2 = self._add(x2, k[p + 1])
-            y3 = self._add(x3, k[p + 2]);
+            y3 = self._add(x3, k[p + 2])
             y4 = self._mul(x4, k[p + 3])
             p += 4
-            y5 = y1 ^ y3;
+            y5 = y1 ^ y3
             y6 = y2 ^ y4
-            y7 = self._mul(y5, k[p]);
+            y7 = self._mul(y5, k[p])
             y8 = self._add(y6, y7)
-            y9 = self._mul(y8, k[p + 1]);
+            y9 = self._mul(y8, k[p + 1])
             y10 = self._add(y7, y9)
             p += 2
             x1, x2 = y1 ^ y9, y3 ^ y9

@@ -1,7 +1,7 @@
 def make_key(passphrase: str, length: int = 16) -> bytes:
     """
     Derive a fixed‑length key from an arbitrary pass‑phrase.
-    Simple XOR folding → **never use for production**.
+    Simple XOR folding.
     """
     key = bytearray(length)
     for i, ch in enumerate(passphrase.encode()):

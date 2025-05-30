@@ -3,6 +3,7 @@ from crypto.idea import IDEA
 from crypto.utils import xor
 from crypto.utils import make_key
 
+
 class CBC:
     """Classic CBC mode wrapping any 64‑bit block cipher."""
 
