@@ -1,7 +1,7 @@
 import tkinter as tk, threading
 from pathlib import Path
 from typing import Optional
-
+from tkinter import filedialog, messagebox
 from gui.widget import CryptoGUI
 from core.file_cipher import FileCipher
 
@@ -17,28 +17,28 @@ class Controller:
     def select_input(self):
         p = tk.filedialog.askopenfilename()
         if p:
-            self.input = Path(p);
+            self.input = Path(p)
             self.view.in_entry.config(state='normal')
-            self.view.in_entry.delete(0, 'end');
+            self.view.in_entry.delete(0, 'end')
             self.view.in_entry.insert(0, p)
             self.view.in_entry.config(state='readonly')
 
     def select_output(self):
         p = tk.filedialog.asksaveasfilename()
         if p:
-            self.output = Path(p);
+            self.output = Path(p)
             self.view.out_entry.config(state='normal')
-            self.view.out_entry.delete(0, 'end');
+            self.view.out_entry.delete(0, 'end')
             self.view.out_entry.insert(0, p)
             self.view.out_entry.config(state='readonly')
 
     def run(self):
         if not self.input or not self.output:
-            tk.messagebox.showerror("Error", "Select both files first");
+            tk.messagebox.showerror("Error", "Select both files first")
             return
         key = self.view.key_entry.get()
         if not key:
-            tk.messagebox.showerror("Error", "Enter a password");
+            tk.messagebox.showerror("Error", "Enter a password")
             return
         encrypt = self.view.op_var.get() == 'Encrypt'
         fc = FileCipher(str(self.input), str(self.output), key, encrypt,
@@ -54,15 +54,15 @@ class Controller:
 
     def _log(self, msg: str):
         t = self.view.status
-        t.config(state='normal');
+        t.config(state='normal')
         t.insert('end', f'{msg}\n')
-        t.see('end');
+        t.see('end')
         t.config(state='disabled')
 
 
 def launch():
-    root = tk.Tk();
-    root.title("IDEA cipher");
+    root = tk.Tk()
+    root.title("IDEA cipher using cbc mode")
     root.resizable(False, False)
-    Controller(root);
+    Controller(root)
     root.mainloop()

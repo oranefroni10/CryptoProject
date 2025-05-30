@@ -22,7 +22,12 @@ class FileCipher:
         with self.src.open('rb') as fin, self.dst.open('wb') as fout:
             while chunk := fin.read(CHUNK):
                 processed += len(chunk)
-                fout.write(self._transform(chunk))
+                # transform every chunk first
+                out_chunk = self._transform(chunk)
+                # if decrypting the *last* chunk, strip the zero-padding
+                if (not self.encrypt) and processed == in_len:
+                    out_chunk = out_chunk.rstrip(b'\0')
+                fout.write(out_chunk)
                 self.progress(processed / in_len)
 
     # ---- helpers ------------------------------------------------------------
